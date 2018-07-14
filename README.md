@@ -1,1 +1,1 @@
-# SwaTestPost
+переменная Url = https://swapi.co/
