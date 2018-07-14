@@ -1,0 +1,407 @@
+{
+	"info": {
+		"_postman_id": "cdac1a04-9669-4318-a2ea-618eab7a6f9e",
+		"name": "RomanovaApiTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "People",
+			"description": "",
+			"item": [
+				{
+					"name": "status200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fec4ddbe-f077-414f-bec0-8d615272c454",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{Url}}api/people/13",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"people",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search-status-ok",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f4018f5-f38d-4ceb-bfde-b06917815c5c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Mass\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.results[0].mass).to.eql(\"77\");",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{Url}}api/people/?search=obi",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"people",
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "obi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RequestPeople/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c73e037d-544d-4d9e-a29e-c9e266de95a5",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"tests[\"Films Id\"] = jsonData.films[3] ===  \"https://swapi.co/api/films/1/\";",
+									"",
+									"tests[\"Starships Id\"] = jsonData.starships[1] === \"https://swapi.co/api/starships/22/\";",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{Url}}api/people/1",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"people",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Planets",
+			"description": "",
+			"item": [
+				{
+					"name": "requestPlanet_1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0f6644dd-7953-4990-b2dd-ff0c43385874",
+								"type": "text/javascript",
+								"exec": [
+									"try {",
+									"    tests[\"Body contains orbital_period, population\"] = responseBody.has(\"orbital_period\", \"population\");",
+									"}",
+									"    catch (e) {}",
+									"",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"population\", \"climate\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{Url}}api/planets/4",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"planets",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RequestSearch=Endor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "195ab3fc-39bb-401b-a55a-4756f868b9f7",
+								"type": "text/javascript",
+								"exec": [
+									" var jsonData = JSON.parse(responseBody);",
+									"",
+									"tests[\"Films\"] = jsonData.results[0].films[0]=== \"https://swapi.co/api/films/3/\"; ",
+									"",
+									"tests[\"Created\"] = jsonData.results[0].created === \"2014-12-10T11:50:29.349000Z\"; ",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{Url}}api/planets/?search=Endor",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"planets",
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Endor"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RequestFilms",
+			"description": "",
+			"item": [
+				{
+					"name": "Films_01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "21cced21-6932-4f30-bea6-dce7cfb05dcc",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"director\", \"characters\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{Url}}api/films/1",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"films",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Films_02",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a35cd166-c845-42b7-841c-de08ff0096af",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Body matches string\"] = responseBody.has( \"Rick McCallum\");",
+									"",
+									"tests[\"Director\"] = jsonData.director === \"George Lucas\";",
+									"",
+									"tests[\"Data\"] = jsonData.created ===  \"2014-12-20T18:49:38.403000Z\";",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Url}}api/films/6",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"films",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "485c6fb4-c166-4de1-bdc4-be44fd30c676",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 404\"] = responseCode.code === 404;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Darth Vader\",\n    \"height\": \"202\",\n    \"mass\": \"136\",\n    \"hair_color\": \"none\",\n    \"skin_color\": \"white\",\n    \"eye_color\": \"brown\",\n    \"birth_year\": \"41.9BBY\",\n    \"gender\": \"male\",\n    \"homeworld\": \"https://swapi.co/api/planets/1/\",\n    \"films\": [\n        \"https://swapi.co/api/films/2/\",\n        \"https://swapi.co/api/films/6/\",\n        \"https://swapi.co/api/films/3/\",\n        \"https://swapi.co/api/films/1/\"\n    ],\n    \"species\": [\n        \"https://swapi.co/api/species/1/\"\n    ],\n    \"vehicles\": [],\n    \"starships\": [\n        \"https://swapi.co/api/starships/13/\"\n    ],\n    \"created\": \"2014-12-10T15:18:20.704000Z\",\n    \"edited\": \"2014-12-20T21:17:50.313000Z\",\n    \"url\": \"https://swapi.co/api/people/4/\"\n}"
+				},
+				"url": {
+					"raw": "https://swapi.co/api/people/30000",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"co"
+					],
+					"path": [
+						"api",
+						"people",
+						"30000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RequestSearch=leia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a79e6506-45f1-4887-a810-168362dac78c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"tests[\"Person name is Leia Organa\"] = jsonData.results[0].name === \"Leia Organa\";",
+							"",
+							"tests[\"Person birth_year is 19BBY\"] = jsonData.results[0].birth_year === \"19BBY\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{Url}}api/people/?search=leia",
+					"host": [
+						"{{Url}}api"
+					],
+					"path": [
+						"people",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "leia"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "5ec66c53-8907-4642-8b71-7f4bc138bca2",
+			"key": "url",
+			"value": "https://swapi.co/",
+			"type": "string",
+			"description": ""
+		}
+	]
+}
